@@ -35,6 +35,7 @@ Dataset 1: In-Genre
 - Filter out songs that are part of the bangers dataset
 - Take out non-bangers with more than 60% popularity
 - Get the audio features
+
 Dataset 2: Out-of-Genre
 - Out-of-Genre: Country, classical, reggae, jazz, blues
 - Find playlists (1-2) for the genres
