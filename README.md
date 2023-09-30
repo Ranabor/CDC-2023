@@ -26,3 +26,21 @@ Playlist IDs
 - 3EoStzWMnc93ktTEZYsSD4
 - 5KlUhhSR7sZOdl8Hxy3Guz
 - 6ebBexShOwJOfK9UIdzNIm
+
+API Feature Analysis
+acousticness,
+danceability,
+duration_ms,
+energy,
+instrumentalness,
+liveness,
+loudness,
+speechiness,
+tempo,
+valence,
+key,
+time_signature
+
+
+
+
