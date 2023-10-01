@@ -12,7 +12,7 @@ class ClubCompatibilityModel(nn.Module):
     def __init__(self):
         super().__init__()
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.linear = torch.nn.Linear(12, 768)
+        self.linear = torch.nn.Linear(1, 768)
         self.linear.to(self.device)
         self.t5 = T5ForConditionalGeneration.from_pretrained('google/flan-t5-base')
         self.t5.to(self.device)
@@ -30,11 +30,12 @@ class ClubCompatibilityModel(nn.Module):
     def forward(self, features, labels):
         input = torch.Tensor(features).to(self.device)
         labels = torch.tensor([[self.yes_id] if label == 'yes' else [self.no_id] for label in labels], dtype=torch.int32).to(self.device)
-
-        feature_embeds = self.linear(input.unsqueeze(dim=0)).squeeze().unsqueeze(dim=1)
+        # print(input.unsqueeze(dim=2).shape)
+        feature_embeds = self.linear(input.unsqueeze(dim=2))
+        # print(feature_embeds.shape)
         prompt_embeds = self.prompt_embeds.repeat(feature_embeds.shape[0], 1, 1)
         input_embeds = torch.cat((prompt_embeds, feature_embeds), dim=1)
-        
+        # print(input_embeds.shape)
         outputs = self.t5(inputs_embeds=input_embeds.cuda(), labels=labels.type(torch.LongTensor).cuda())
         if self.training:     
             return outputs
@@ -60,14 +61,14 @@ def main():
     model = ClubCompatibilityModel()
     optimizer = AdamW(model.parameters(), lr = 1e-6)
     batch_size = 8
-    epochs = [1, 2, 3]
+    epochs = [i for i in range(1, 11)]
     
     dataset = SongDataset()
     
-    train_dataset, valid_dataset = random_split(dataset, [0.8, 0.2])
+    train_dataset, valid_dataset, test_dataset = random_split(dataset, [0.8, 0.1, 0.1])
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, collate_fn=collate_fn)
     valid_dataloader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=True, collate_fn=collate_fn)
-    # test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, collate_fn=collate_fn)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, collate_fn=collate_fn)
     
     for epoch in epochs:
         print(f">>> Epoch {epoch}")
@@ -92,13 +93,26 @@ def main():
                 predictions, actual = model(data['features'], data['labels'])
                 total_correct += torch.sum(predictions.squeeze() == actual.squeeze())
             progress.update()
-        predictions.squeeze() == actual.squeeze()
+        progress.close()
         print(f"Accuracy: {total_correct/len(valid_dataset)}")
         
         torch.save(
             model.state_dict(),
-            os.path.join("./checkpoints", f"vit_bart_latest-{epoch}.pt"),
+            os.path.join("./checkpoints", f"club_compatibility_index-{epoch}.pt"),
         )
+    
+    model.eval()
+    progress = tqdm(total=len(test_dataloader), desc='club_compatibility_index')
+    
+    total_correct = 0
+    for i, data in enumerate(test_dataloader):
+        with torch.no_grad():
+            predictions, actual = model(data['features'], data['labels'])
+            total_correct += torch.sum(predictions.squeeze() == actual.squeeze())
+        progress.update()
+    progress.close()
+    print(f"Accuracy: {total_correct/len(valid_dataset)}")
+        
     
 if __name__=='__main__':
     main()

@@ -7,7 +7,9 @@ class SongDataset(Dataset):
         super().__init__()
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.df = pd.read_csv('audio_features.csv')
-        self.columns = list(self.df.columns[1:-1])
+        sig_features = [1, 2, 3, 4, 6, 7, 9, 10, 13]
+        self.df = self.df.iloc[:, sig_features]
+        self.columns = list(self.df.columns)[:-1]
     
     def __getitem__(self, idx):
         features = []
