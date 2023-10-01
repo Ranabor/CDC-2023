@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-csv_file = "dataset/final_songs.csv"
+banger_csv_file = "dataset/banger_songs.csv"
+nonbanger_csv_file = "dataset/non_bangers.csv"
 
 
 
@@ -45,9 +46,13 @@ def get_audio_features(csv_file):
     #songs = json_response['items']
     return final_df
 
-final_df = get_audio_features(csv_file)
+final_df = get_audio_features(banger_csv_file)
+final_df.to_csv('banger_features.csv', index=True)
 
-final_df.to_csv('banger_features.csv', index=False)
+nonbanger_df = get_audio_features(nonbanger_csv_file)
+nonbanger_df.to_csv('nonbanger_features.csv', index=True)
+
+
 """""""""
 # Assuming df is your DataFrame with 'Column1' and 'Column2'
 plt.figure(figsize=(10, 6))
