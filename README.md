@@ -26,3 +26,35 @@ Playlist IDs
 - 3EoStzWMnc93ktTEZYsSD4
 - 5KlUhhSR7sZOdl8Hxy3Guz
 - 6ebBexShOwJOfK9UIdzNIm
+
+Non-bangers dataset
+
+Dataset 1: In-Genre
+- Retrieve top 20 artists for the most common banger genres
+- Get all the songs for the picked artists
+- Filter out songs that are part of the bangers dataset
+- Take out non-bangers with more than 60% popularity
+- Get the audio features
+
+Dataset 2: Out-of-Genre
+- Out-of-Genre: Country, classical, reggae, jazz, blues
+- Find playlists (1-2) for the genres
+- Get the audio features
+
+API Feature Analysis
+acousticness,
+danceability,
+duration_ms,
+energy,
+instrumentalness,
+liveness,
+loudness,
+speechiness,
+tempo,
+valence,
+key,
+time_signature
+
+
+
+
