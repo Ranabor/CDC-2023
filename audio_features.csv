@@ -1,4 +1,4 @@
-track.uri,acousticness,danceability,duration_ms,energy,instrumentalness,liveness,loudness,speechiness,tempo,valence,key,time_signature,is_banger
+track.uri,acousticness,danceability,duration_ms,energy,instrumentalness,liveness,loudness,speechiness,tempo,valence,key,time_signature,is_club_compatible
 3ZFTkvIE7kyPt6Nu3PEa7V,0.284,0.778,218093.0,0.824,0.0,0.405,-5.892,0.0707,100.024,0.758,10.0,4.0,yes
 6bK9BH9Ts8Gj5JFvnQkzak,0.614,0.741,211666.0,0.824,0.0,0.158,-4.143,0.0352,100.216,0.725,10.0,4.0,yes
 77FULy278MulVvGWS8BfK7,0.0165,0.675,191000.0,0.862,0.000427,0.169,-4.614,0.0253,129.967,0.498,11.0,4.0,yes
