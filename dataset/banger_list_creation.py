@@ -8,7 +8,6 @@ import json
 import pandas as pd
 
 
-# write a function to get the top 20 artists in the pop genre using the spotify api example
 def get_top_artists():
     # get the token
     # get the header
