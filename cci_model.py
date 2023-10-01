@@ -20,7 +20,7 @@ class ClubCompatibilityModel(nn.Module):
         self.yes_id, self.no_id = 4273, 150
         
         prompt = "Would this song be played at the club? Yes or No."
-        tokenized_prompt = self.t5_tokenizer(prompt, return_tensors='pt').input_ids.cuda()
+        tokenized_prompt = self.t5_tokenizer(prompt, return_tensors='pt').input_ids.to(self.device)
         
         self.prompt_embeds = self.t5.encoder.embed_tokens(tokenized_prompt).to(self.device)
         
