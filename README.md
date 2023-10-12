@@ -7,14 +7,14 @@ https://devpost.com/software/club-compatibility
   - [ ] find features we want to use
 - [ ] make data viz
   - [ ] find chart ideas
-- [ ] make model to predit "bangability"
+- [ ] make model to predit whether song wouuld make a good club hit (Club compataiblity index)
   - [ ] use LLM
     - [ ] pass in the features and embeddings
-    - [ ] "is it bangable?" look at probability of yes
+    - [ ] "will it make a good club hit" look at probability of yes
   - [ ] look at cover art
 
 Control: Top 20 artists of club banger genre songs
-Experimental: Club bangers
+Experimental: Club hits
 
 Playlist IDs
 - 37i9dQZF1EIezLFyG0SSkJ
@@ -31,10 +31,10 @@ Playlist IDs
 Non-bangers dataset
 
 Dataset 1: In-Genre
-- Retrieve top 20 artists for the most common banger genres
+- Retrieve top 20 artists for the most common club genres
 - Get all the songs for the picked artists
 - Filter out songs that are part of the bangers dataset
-- Take out non-bangers with more than 60% popularity
+- Take out non-club songs with more than 60% popularity
 - Get the audio features
 
 Dataset 2: Out-of-Genre
